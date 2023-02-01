@@ -1,76 +1,87 @@
 import styled, {keyframes} from "styled-components";
 import { random } from "../functions/utils";
 
-
-const balloonsLeftUpKFAnimation = ({x,y, left, hangOnTop, rotate}) => {
-  // console.log({x,y, left, rotate});
-  return keyframes`
-  {
-    0%{ 
-      top: 100vh;
-      left: ${`${left}vw`};
-    }
-    15%{ 
-      top: ${`${random(70,80)}vh`};
-      left: ${`${left-random(10,20)}vw`};
-    }
-    25%{
-      top: ${`${random(45,55)}vh`};
-      left: ${`${left+random(15,20)}vw`};
-    }
-    45%{
-      top: ${`${random(25,40)}vh`};
-      left: ${`${left-random(20,30)}vw`};
-    }
-    80%{
-      top: ${`${random(5,15)}vh`};
-      left: ${`${left+random(20,30)}vw`};
-    }
-    100%{
-      top: ${`${hangOnTop ? random(-2, 1) : random(-60,-70)}vh`};
-      left: ${`${hangOnTop ? random(0,50) : left-random(30,50)}vw`};
-    }
-  }
-`
-};
-const balloonsRightUpKFAnimation = ({x,y, left, rotate, hangOnTop}) => {
-  // console.log({x,y, left, rotate});
-  return keyframes`
-  {
-    0%{ 
-      top: 100vh;
-      left: ${`${left}vw`};
-    }
-    30%{ 
-      top: ${`${random(60,70)}vh`};
-      left: ${`${left-random(10,30)}vw`};
-    }
-    55%{
-      top: ${`${random(30,40)}vh`};
-      left: ${`${left+random(5,20)}vw`};
-    }
-    70%{
-      top: ${`${random(10,20)}vh`};
-      left: ${`${left-random(20,30)}vw`};
-    }
-    100%{
-      top: ${`${hangOnTop ? random(-2, 1) : random(-60,-70)}vh`};
-      left: ${`${hangOnTop ? random(0,50) : left+random(30,50)}vw`};
-    }
-  }
-`
-};
-
-const colorMaps = {
-  yellow: 'rgba(150, 150, 0, .75)',
-  blue: 'rgba(0, 0, 150, .75)',
-  purple: 'rgba(77, 0, 150, 0.75)',
-  green: 'rgba(0, 150, 0, .75)',
-  orange: 'rgba(150, 47, 0, 0.75)',
-  red: 'rgba(150, 0, 0, .75)',
+interface BalloonProps {
+    color: keyof typeof colorMaps;
+    show: boolean;
+    visible: boolean;
+    animate: {
+    left: number;
+    loop: boolean;
+    duration: number;
+    delay: number;
+    hangOnTop: boolean;
+    };
 }
 
-export const StyledBalloon = styled.div`
+const colorMaps: { [key: string]: string } = {
+    yellow: 'rgba(150, 150, 0, .75)',
+    blue: 'rgba(0, 0, 150, .75)',
+    purple: 'rgba(77, 0, 150, 0.75)',
+    green: 'rgba(0, 150, 0, .75)',
+    orange: 'rgba(150, 47, 0, 0.75)',
+    red: 'rgba(150, 0, 0, .75)',
+    };
+
+const balloonsLeftUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boolean }) => {
+    return keyframes`
+    {
+      0%{ 
+        top: 100vh;
+        left: ${`${left}vw`};
+      }
+      15%{ 
+        top: ${`${random(70,80)}vh`};
+        left: ${`${left-random(10,20)}vw`};
+      }
+      25%{
+        top: ${`${random(45,55)}vh`};
+        left: ${`${left+random(15,20)}vw`};
+      }
+      45%{
+        top: ${`${random(25,40)}vh`};
+        left: ${`${left-random(20,30)}vw`};
+      }
+      80%{
+        top: ${`${random(5,15)}vh`};
+        left: ${`${left+random(20,30)}vw`};
+      }
+      100%{
+        top: ${`${hangOnTop ? random(-2, 1) : random(-60,-70)}vh`};
+        left: ${`${hangOnTop ? random(0,50) : left-random(30,50)}vw`};
+      }
+    }
+  `
+  };
+  
+  const balloonsRightUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boolean }) => {
+    return keyframes`
+    {
+      0%{ 
+        top: 100vh;
+        left: ${`${left}vw`};
+      }
+      30%{ 
+        top: ${`${random(60,70)}vh`};
+        left: ${`${left-random(10,30)}vw`};
+      }
+      55%{
+        top: ${`${random(30,40)}vh`};
+        left: ${`${left+random(5,20)}vw`};
+      }
+      70%{
+        top: ${`${random(10,20)}vh`};
+        left: ${`${left-random(20,30)}vw`};
+      }
+      100%{
+        top: ${`${hangOnTop ? random(-2, 1) : random(-60,-70)}vh`};
+        left: ${`${hangOnTop ? random(0,50) : left+random(30,50)}vw`};
+      }
+    }
+  `
+  };
+
+  export const StyledBalloon = styled.div<BalloonProps>`
   // top: 100px;
   background-color: ${props => colorMaps[props.color]};
   display: ${props => props.show ? 'block' : 'none'};
@@ -126,14 +137,14 @@ export const StyledBalloon = styled.div`
   }
   .msg {
     color: #fff;
-    font-family: cursive;
     position: absolute;
     top: 30%;
     left: 28%;
-    transform: rotate(302deg);
+    font-size: 30px
   }
   .show {
     display: block;
     visibility: visible;
   }
 `;
+  

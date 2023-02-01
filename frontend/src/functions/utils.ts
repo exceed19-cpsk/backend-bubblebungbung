@@ -2,7 +2,7 @@ function random(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function randomWithoutMax(num) {
+function randomWithoutMax(num: number) {
   return Math.floor(Math.random() * num);
 }
 
