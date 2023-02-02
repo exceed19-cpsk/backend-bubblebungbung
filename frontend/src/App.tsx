@@ -10,11 +10,11 @@ function App() {
 
     const interval = setInterval(() => {
       fetch()
-    }, 3000);
+    }, 5000);
 
     const fetch = async() => {
       const res = await axios.get("http://localhost:8000/request")
-      setBalloons(prevBalloons => [...prevBalloons, {text: res.data.text, color: "red"}])
+      setBalloons(prevBalloons => [...prevBalloons, {text: res.data.text, color: res.data.color}])
     }
     return () => clearInterval(interval)
   })

@@ -1,3 +1,4 @@
+import { random } from "../functions/utils"
 import { StyledBalloon } from "./FloatingBalloon"
 
 interface props {
@@ -13,7 +14,7 @@ const Balloon = ({text, color}: props) => {
         show={true}
         visible={true}
         animate={{
-          left: 50,
+          left: random(-10, 90),
           loop: true,
           duration: 5,
           delay: 2,

@@ -1,4 +1,4 @@
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { random } from "../functions/utils";
 
 interface BalloonProps {
@@ -6,13 +6,15 @@ interface BalloonProps {
     show: boolean;
     visible: boolean;
     animate: {
-    left: number;
-    loop: boolean;
-    duration: number;
-    delay: number;
-    hangOnTop: boolean;
+        left: number;
+        loop: boolean;
+        duration: number;
+        delay: number;
+        hangOnTop: boolean;
     };
 }
+
+const balloonAccelerate = 15
 
 const colorMaps: { [key: string]: string } = {
     yellow: 'rgba(150, 150, 0, .75)',
@@ -21,7 +23,7 @@ const colorMaps: { [key: string]: string } = {
     green: 'rgba(0, 150, 0, .75)',
     orange: 'rgba(150, 47, 0, 0.75)',
     red: 'rgba(150, 0, 0, .75)',
-    };
+};
 
 const balloonsLeftUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boolean }) => {
     return keyframes`
@@ -30,58 +32,41 @@ const balloonsLeftUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTo
         top: 100vh;
         left: ${`${left}vw`};
       }
-      15%{ 
-        top: ${`${random(70,80)}vh`};
-        left: ${`${left-random(10,20)}vw`};
-      }
-      25%{
-        top: ${`${random(45,55)}vh`};
-        left: ${`${left+random(15,20)}vw`};
-      }
-      45%{
-        top: ${`${random(25,40)}vh`};
-        left: ${`${left-random(20,30)}vw`};
-      }
-      80%{
-        top: ${`${random(5,15)}vh`};
-        left: ${`${left+random(20,30)}vw`};
-      }
       100%{
-        top: ${`${hangOnTop ? random(-2, 1) : random(-60,-70)}vh`};
-        left: ${`${hangOnTop ? random(0,50) : left-random(30,50)}vw`};
+        top: ${`${hangOnTop ? random(-2, 1) : random(-60, -70)}vh`};
       }
     }
   `
-  };
-  
-  const balloonsRightUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boolean }) => {
-    return keyframes`
-    {
-      0%{ 
-        top: 100vh;
-        left: ${`${left}vw`};
-      }
-      30%{ 
-        top: ${`${random(60,70)}vh`};
-        left: ${`${left-random(10,30)}vw`};
-      }
-      55%{
-        top: ${`${random(30,40)}vh`};
-        left: ${`${left+random(5,20)}vw`};
-      }
-      70%{
-        top: ${`${random(10,20)}vh`};
-        left: ${`${left-random(20,30)}vw`};
-      }
-      100%{
-        top: ${`${hangOnTop ? random(-2, 1) : random(-60,-70)}vh`};
-        left: ${`${hangOnTop ? random(0,50) : left+random(30,50)}vw`};
-      }
-    }
-  `
-  };
+};
 
-  export const StyledBalloon = styled.div<BalloonProps>`
+// const balloonsRightUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boolean }) => {
+//     return keyframes`
+//     {
+//       0%{ 
+//         top: 100vh;
+//         left: ${`${left}vw`};
+//       }
+//       30%{ 
+//         top: ${`${70}vh`};
+        
+//       }
+//       55%{
+//         top: ${`${40}vh`};
+        
+//       }
+//       70%{
+//         top: ${`${10}vh`};
+        
+//       }
+//       100%{
+//         top: ${`${hangOnTop ? random(-2, 1) : random(-60, -70)}vh`};
+       
+//       }
+//     }
+//   `
+// };
+
+export const StyledBalloon = styled.div<BalloonProps>`
   // top: 100px;
   background-color: ${props => colorMaps[props.color]};
   display: ${props => props.show ? 'block' : 'none'};
@@ -89,11 +74,11 @@ const balloonsLeftUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTo
   left: ${props => `${props.animate.left}vw`};
   transition: transform 0.5s ease;
   z-index: 10;
-  animation: ${props => props.animate.left > 50 ? balloonsRightUpKFAnimation(props.animate): balloonsLeftUpKFAnimation(props.animate)} ease-in-out ${props => props.animate.loop ? 'infinite' : '1'};
+  animation: ${props => balloonsLeftUpKFAnimation(props.animate)} ease-in-out ${props => props.animate.loop ? 'infinite' : '1'};
   // animation-duration: 3s;
   animation-duration: ${props => `${props.animate.duration}s`};
-  animation-delay ${props => `${props.animate.delay}s`};
   animation-fill-mode: ${props => props.animate.hangOnTop ? 'forwards' : 'none'};
+  animation-delay ${props => `${props.animate.delay}s`};
   transform-origin:bottom center;
   --balloonDimension: 15vmax; /* 15% of min(viewport width, height) */
   width: var(--balloonDimension);
@@ -147,4 +132,3 @@ const balloonsLeftUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTo
     visibility: visible;
   }
 `;
-  
