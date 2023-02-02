@@ -21,7 +21,7 @@ const Balloon = ({text, color}: props) => {
         }}
       ><div className="string">
       </div>
-      {<span className="msg">{text}</span>}
+      {<span className="msg ">{text}</span>}
       </StyledBalloon>
     </div>
   )
