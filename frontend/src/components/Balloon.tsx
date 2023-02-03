@@ -15,8 +15,8 @@ const Balloon = ({text, color}: props) => {
         visible={true}
         animate={{
           left: random(-10, 90),
-          loop: true,
-          duration: 5,
+          loop: false,
+          duration: random(5, 8),
           delay: 2,
           hangOnTop: false
         }}

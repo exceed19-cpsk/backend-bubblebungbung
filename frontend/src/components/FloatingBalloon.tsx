@@ -14,8 +14,6 @@ interface BalloonProps {
     };
 }
 
-const balloonAccelerate = 15
-
 const colorMaps: { [key: string]: string } = {
     yellow: 'rgba(150, 150, 0, .75)',
     blue: 'rgba(0, 0, 150, .75)',
@@ -25,7 +23,7 @@ const colorMaps: { [key: string]: string } = {
     red: 'rgba(150, 0, 0, .75)',
 };
 
-const balloonsLeftUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boolean }) => {
+const balloonsUpAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boolean }) => {
     return keyframes`
     {
       0%{ 
@@ -39,33 +37,6 @@ const balloonsLeftUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTo
   `
 };
 
-// const balloonsRightUpKFAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boolean }) => {
-//     return keyframes`
-//     {
-//       0%{ 
-//         top: 100vh;
-//         left: ${`${left}vw`};
-//       }
-//       30%{ 
-//         top: ${`${70}vh`};
-        
-//       }
-//       55%{
-//         top: ${`${40}vh`};
-        
-//       }
-//       70%{
-//         top: ${`${10}vh`};
-        
-//       }
-//       100%{
-//         top: ${`${hangOnTop ? random(-2, 1) : random(-60, -70)}vh`};
-       
-//       }
-//     }
-//   `
-// };
-
 export const StyledBalloon = styled.div<BalloonProps>`
   // top: 100px;
   background-color: ${props => colorMaps[props.color]};
@@ -74,7 +45,7 @@ export const StyledBalloon = styled.div<BalloonProps>`
   left: ${props => `${props.animate.left}vw`};
   transition: transform 0.5s ease;
   z-index: 10;
-  animation: ${props => balloonsLeftUpKFAnimation(props.animate)} ease-in-out ${props => props.animate.loop ? 'infinite' : '1'};
+  animation: ${props => balloonsUpAnimation(props.animate)} ease-in-out ${props => props.animate.loop ? 'infinite' : '1'} ${props => `${props.animate.duration}s`};
   // animation-duration: 3s;
   animation-duration: ${props => `${props.animate.duration}s`};
   animation-fill-mode: ${props => props.animate.hangOnTop ? 'forwards' : 'none'};
