@@ -9,7 +9,6 @@ import (
 
 // ServeWs handles websocket requests from the peer.
 func ServeWs(hub *service.WsHub, w http.ResponseWriter, r *http.Request, u websocket.Upgrader) {
-	log.Println("Client request to connect websocket")
 	conn, err := u.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)

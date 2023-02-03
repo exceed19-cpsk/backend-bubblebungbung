@@ -5,7 +5,6 @@ import (
 	"github.com/kelseyhightower/envconfig"
 	"github.com/sirupsen/logrus"
 	"os"
-	"strings"
 )
 
 type Config struct {
@@ -13,7 +12,7 @@ type Config struct {
 	GIN_MODE       string `envconfig:"GIN_MODE" default:"release"`
 	LISTENING_PORT string `envconfig:"LISTENING_PORT" default:"3000"`
 	PROXY_URL      string `envconfig:"PROXY_URL"`
-	ALLOW_ORIGINS  []string
+	API_KEY        string `envconfig:"API_KEY"`
 }
 
 func Load() Config {
@@ -28,11 +27,6 @@ func Load() Config {
 	err := godotenv.Load("./.env")
 	if err != nil {
 		logrus.Warn("Can't load env file")
-	}
-
-	AllowOriginsString, ok := os.LookupEnv("ALLOW_ORIGINS")
-	if ok {
-		config.ALLOW_ORIGINS = strings.Split(AllowOriginsString, ",")
 	}
 
 	envconfig.MustProcess("", &config)
