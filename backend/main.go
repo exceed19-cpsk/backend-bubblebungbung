@@ -35,10 +35,14 @@ func main() {
 
 	go hub.Run()
 
-	messageHandler := handler.NewMessageHandler(hub)
+	messageHandler := handler.NewMessageHandler(hub, appConfig)
 	api.GET("/ws", func(c *gin.Context) {
 		handler.ServeWs(hub, c.Writer, c.Request, upgrader)
 	})
-	api.POST("/message", messageHandler.SendMessage)
+	api.GET("/message/:message", messageHandler.SendMessageGet)
+	api.GET("/message", messageHandler.SendQueryMessageGet)
+	api.POST("/message", messageHandler.SendMessagePost)
+	api.PUT("/message", messageHandler.SendMessagePut)
+	api.DELETE("/message", messageHandler.SendMessageDelete)
 	server.Run(fmt.Sprint(":", appConfig.LISTENING_PORT))
 }
