@@ -15,10 +15,11 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "react-use-websocket": "^4.2.0",
-    "socket.io-client": "^4.5.4",
+    "socket.io": "^4.5.4",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
+    "@types/websocket": "^1.0.5",
     "tailwindcss": "^3.2.4"
   }
 }

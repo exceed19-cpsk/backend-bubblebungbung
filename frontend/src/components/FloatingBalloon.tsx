@@ -39,7 +39,7 @@ const balloonsUpAnimation = ({ left, hangOnTop }: { left: number; hangOnTop: boo
 
 export const StyledBalloon = styled.div<BalloonProps>`
   // top: 100px;
-  background-color: ${props => colorMaps[props.color]};
+  background-color: ${props => colorMaps[props.color]?colorMaps[props.color]:"red"};
   display: ${props => props.show ? 'block' : 'none'};
   visibility: ${props => props.visible ? 'visible' : 'hidden'};
   left: ${props => `${props.animate.left}vw`};
