@@ -1,7 +1,7 @@
 FROM node:18.13.0
 
-ARG prot=3000
-ENV PROT=${port}
+ARG port=8080
+ENV PORT=${port}
 
 COPY ./package*.json .
 
