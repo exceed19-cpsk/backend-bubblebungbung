@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+
 	"github.com/exceed19-cpsk/backend-bubblebungbung/config"
 	"github.com/exceed19-cpsk/backend-bubblebungbung/handler"
 	"github.com/exceed19-cpsk/backend-bubblebungbung/service"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
-	"net/http"
 )
 
 var appConfig config.Config
@@ -35,7 +36,7 @@ func main() {
 	go hub.Run()
 
 	messageHandler := handler.NewMessageHandler(hub)
-	api.GET("/ws", handler.ValidateAPIKey(appConfig.API_KEY), func(c *gin.Context) {
+	api.GET("/ws", func(c *gin.Context) {
 		handler.ServeWs(hub, c.Writer, c.Request, upgrader)
 	})
 	api.POST("/message", messageHandler.SendMessage)
