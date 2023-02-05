@@ -13,6 +13,7 @@ type Config struct {
 	LISTENING_PORT string `envconfig:"LISTENING_PORT" default:"3000"`
 	PROXY_URL      string `envconfig:"PROXY_URL"`
 	API_KEY        string `envconfig:"API_KEY"`
+	MESSAGE_SIZE   string `envconfig:"MESSAGE_SIZE" default:"100"`
 }
 
 func Load() Config {
